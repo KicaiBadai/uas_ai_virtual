@@ -17,97 +17,26 @@ class AIController extends Controller
             |--------------------------------------------------------------------------
             */
 
-           $message = strtolower($request->message);
-
-/*
-|--------------------------------------------------------------------------
-| 1. ALLOW CHAT NORMAL (GREETING / OBROLAN UMUM)
-|--------------------------------------------------------------------------
-*/
-
-$normalChats = [
-    'halo', 'hai', 'hi', 'pagi', 'siang', 'malam',
-    'apa kabar', 'kabar', 'assalamualaikum', 'tes'
-];
-
-foreach ($normalChats as $chat) {
-    if (str_contains($message, $chat)) {
-        // lanjut ke AI tanpa blok
-        $isOutOfScope = false;
-        goto continue_process;
-    }
-}
-
-/*
-|--------------------------------------------------------------------------
-| 2. CEK TOPIK TOKO
-|--------------------------------------------------------------------------
-*/
-
-$allowedKeywords = [
-    'hoodie', 'kaos', 'topi', 'merchandise',
-    'harga', 'pengiriman', 'toko', 'produk',
-    'anime', 'gaming', 'streetwear'
-];
-
-$isOutOfScope = true;
-
-foreach ($allowedKeywords as $keyword) {
-    if (str_contains($message, $keyword)) {
-        $isOutOfScope = false;
-        break;
-    }
-}
-
-if ($isOutOfScope) {
-    return response()->json([
-        'reply' => 'Saya hanya bisa membantu seputar produk dan AM Merchandise.'
-    ]);
-}
-
-continue_process:
+            $message = strtolower($request->message);
 
 
             /*
             |--------------------------------------------------------------------------
-            | FAQ MANUAL
+            | FAQ MANUAL (FAST RESPONSE)
             |--------------------------------------------------------------------------
             */
 
             $faq = [
 
-                'jam buka' =>
-                'Toko buka setiap hari jam 08:00 sampai 22:00.',
-
-                'pengiriman' =>
-                'Pengiriman memakan waktu sekitar 2-3 hari.',
-
-                'harga hoodie' =>
-                'Harga hoodie mulai dari Rp180.000.',
-
-                'harga kaos' =>
-                'Harga kaos mulai dari Rp95.000.',
-
-                'siapa pembuat website ini' =>
-                'Website ini dibuat oleh Aditya Maula.',
-
-                'nama toko' =>
-                'Nama toko ini adalah AM Merchandise.',
-
-                'ada hoodie' =>
-                'Ya, kami menyediakan hoodie anime dan gaming.',
-
-                'ada topi' =>
-                'Ya, tersedia topi streetwear.',
-
+                'jam buka' => 'Toko buka setiap hari jam 08:00 sampai 22:00.',
+                'pengiriman' => 'Pengiriman memakan waktu sekitar 2-3 hari.',
+                'harga hoodie' => 'Harga hoodie mulai dari Rp180.000.',
+                'harga kaos' => 'Harga kaos mulai dari Rp95.000.',
+                'siapa pembuat website ini' => 'Website ini dibuat oleh Aditya Maula.',
+                'nama toko' => 'Nama toko ini adalah AM Merchandise.',
+                'ada hoodie' => 'Ya, kami menyediakan hoodie anime dan gaming.',
+                'ada topi' => 'Ya, tersedia topi streetwear.',
             ];
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | CEK FAQ DULU
-            |--------------------------------------------------------------------------
-            */
 
             foreach ($faq as $question => $answer) {
                 if (str_contains($message, $question)) {
@@ -120,7 +49,58 @@ continue_process:
 
             /*
             |--------------------------------------------------------------------------
-            | MEMORY CHAT SESSION
+            | INTENT GUARD (ANTI OUTSIDE TOPIC)
+            |--------------------------------------------------------------------------
+            */
+
+            $shopKeywords = [
+                'hoodie', 'kaos', 'topi', 'merchandise',
+                'harga', 'pengiriman', 'produk', 'toko',
+                'anime', 'gaming', 'streetwear', 'barang'
+            ];
+
+            $isRelatedToShop = false;
+
+            foreach ($shopKeywords as $word) {
+                if (str_contains($message, $word)) {
+                    $isRelatedToShop = true;
+                    break;
+                }
+            }
+
+
+            $blockedGeneralTopics = [
+                'jokowi', 'presiden', 'sejarah', 'indonesia',
+                'fisika', 'matematika', 'kimia',
+                'siapa', 'apa itu', 'kapan', 'dimana'
+            ];
+
+            $isGeneralTopic = false;
+
+            foreach ($blockedGeneralTopics as $word) {
+                if (str_contains($message, $word)) {
+                    $isGeneralTopic = true;
+                    break;
+                }
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | RULE FINAL
+            |--------------------------------------------------------------------------
+            */
+
+            if ($isGeneralTopic && !$isRelatedToShop) {
+                return response()->json([
+                    'reply' => 'Saya hanya bisa membantu seputar produk AM Merchandise.'
+                ]);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | MEMORY CHAT
             |--------------------------------------------------------------------------
             */
 
@@ -129,7 +109,7 @@ continue_process:
 
             /*
             |--------------------------------------------------------------------------
-            | SYSTEM PROMPT (DIPERKUAT)
+            | SYSTEM PROMPT (FLEKSIBEL + NATURAL)
             |--------------------------------------------------------------------------
             */
 
@@ -140,11 +120,16 @@ continue_process:
 
 Kamu adalah AI customer service AM Merchandise.
 
-ATURAN WAJIB:
-- HANYA boleh menjawab tentang produk AM Merchandise
-- Jika di luar topik, jawab: "Saya hanya bisa membantu seputar produk AM Merchandise."
-- Jawaban singkat (1–2 kalimat)
-- Bahasa santai
+ATURAN:
+- Boleh ngobrol normal (halo, apa kabar, dll)
+- Harus selalu mengarah ke produk toko secara natural
+- Tidak boleh menjawab pengetahuan umum (politik, sejarah, dll)
+- Jawaban 1–2 kalimat, santai
+
+TUJUAN:
+- Bantu pelanggan lihat produk
+- Rekomendasi barang
+- Menjawab pertanyaan toko
 
 PRODUK:
 - Hoodie anime
@@ -153,7 +138,17 @@ PRODUK:
 
 INFO:
 - Pengiriman: 2–3 hari
-- Harga mulai: Rp80.000
+- Harga mulai Rp80.000
+
+CONTOH:
+User: "halo"
+Jawab: "Halo! Lagi cari hoodie atau kaos gaming?"
+
+User: "ada barang apa aja?"
+Jawab: "Ada hoodie anime, kaos gaming, dan topi streetwear. Mau lihat yang mana?"
+
+User: "apa kabar"
+Jawab: "Baik! Kamu lagi cari merchandise apa hari ini?"
 
 '
                 ];
@@ -162,7 +157,7 @@ INFO:
 
             /*
             |--------------------------------------------------------------------------
-            | TAMBAH PESAN USER
+            | USER MESSAGE
             |--------------------------------------------------------------------------
             */
 
@@ -174,7 +169,7 @@ INFO:
 
             /*
             |--------------------------------------------------------------------------
-            | BATASI MEMORY
+            | LIMIT MEMORY
             |--------------------------------------------------------------------------
             */
 
@@ -196,7 +191,7 @@ INFO:
                     'https://api.mistral.ai/v1/chat/completions',
                     [
                         'model' => 'open-mistral-7b',
-                        'temperature' => 0.5,
+                        'temperature' => 0.7,
                         'max_tokens' => 150,
                         'messages' => $messages
                     ]
@@ -205,7 +200,7 @@ INFO:
 
             /*
             |--------------------------------------------------------------------------
-            | AMBIL RESPONSE AI
+            | RESPONSE AI
             |--------------------------------------------------------------------------
             */
 
@@ -215,7 +210,7 @@ INFO:
 
             /*
             |--------------------------------------------------------------------------
-            | SIMPAN KE SESSION
+            | SAVE CHAT
             |--------------------------------------------------------------------------
             */
 
@@ -231,7 +226,7 @@ INFO:
 
             /*
             |--------------------------------------------------------------------------
-            | RESPONSE KE FRONTEND
+            | RESPONSE
             |--------------------------------------------------------------------------
             */
 
