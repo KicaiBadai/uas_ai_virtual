@@ -174,6 +174,18 @@
 
             .chat-header {
                 padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .close-btn {
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                font-size: 20px !important;
+                padding: 0 !important;
             }
 
             #chat-box {
@@ -393,14 +405,14 @@
     >
         <!-- HEADER -->
         <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 md:p-6 flex justify-between items-center flex-shrink-0 chat-header">
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
                 <h2 class="font-bold text-base md:text-lg">🤖 AI Assistant</h2>
                 <div class="flex items-center gap-2 text-xs md:text-sm text-purple-100">
                     <span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span>
                     Online
                 </div>
             </div>
-            <button onclick="toggleChat()" class="hover:bg-purple-500 p-2 rounded-lg transition flex-shrink-0 ml-2">
+            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 ml-2 close-btn flex items-center justify-center text-xl md:text-lg">
                 ✕
             </button>
         </div>
