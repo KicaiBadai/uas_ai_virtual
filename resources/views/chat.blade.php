@@ -409,7 +409,7 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                const response = await fetch('/chat-ai', {
+                const response = await fetch(window.location.origin + '/chat-ai', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
