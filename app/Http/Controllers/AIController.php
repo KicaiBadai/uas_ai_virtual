@@ -11,9 +11,61 @@ class AIController extends Controller
     {
         try {
 
-            // AMBIL PESAN USER
-            $message = strtolower($request->message);
+            /*
+            |--------------------------------------------------------------------------
+            | AMBIL PESAN USER
+            |--------------------------------------------------------------------------
+            */
 
+           $message = strtolower($request->message);
+
+/*
+|--------------------------------------------------------------------------
+| 1. ALLOW CHAT NORMAL (GREETING / OBROLAN UMUM)
+|--------------------------------------------------------------------------
+*/
+
+$normalChats = [
+    'halo', 'hai', 'hi', 'pagi', 'siang', 'malam',
+    'apa kabar', 'kabar', 'assalamualaikum', 'tes'
+];
+
+foreach ($normalChats as $chat) {
+    if (str_contains($message, $chat)) {
+        // lanjut ke AI tanpa blok
+        $isOutOfScope = false;
+        goto continue_process;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| 2. CEK TOPIK TOKO
+|--------------------------------------------------------------------------
+*/
+
+$allowedKeywords = [
+    'hoodie', 'kaos', 'topi', 'merchandise',
+    'harga', 'pengiriman', 'toko', 'produk',
+    'anime', 'gaming', 'streetwear'
+];
+
+$isOutOfScope = true;
+
+foreach ($allowedKeywords as $keyword) {
+    if (str_contains($message, $keyword)) {
+        $isOutOfScope = false;
+        break;
+    }
+}
+
+if ($isOutOfScope) {
+    return response()->json([
+        'reply' => 'Saya hanya bisa membantu seputar produk dan AM Merchandise.'
+    ]);
+}
+
+continue_process:
 
 
             /*
@@ -51,25 +103,19 @@ class AIController extends Controller
             ];
 
 
-
             /*
             |--------------------------------------------------------------------------
             | CEK FAQ DULU
             |--------------------------------------------------------------------------
             */
 
-            foreach ($faq as $question => $answer)
-            {
-                if (str_contains($message, $question))
-                {
+            foreach ($faq as $question => $answer) {
+                if (str_contains($message, $question)) {
                     return response()->json([
-
                         'reply' => $answer
-
                     ]);
                 }
             }
-
 
 
             /*
@@ -78,76 +124,52 @@ class AIController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $messages =
-            session()->get('chat_history', []);
-
+            $messages = session()->get('chat_history', []);
 
 
             /*
             |--------------------------------------------------------------------------
-            | SYSTEM PROMPT
+            | SYSTEM PROMPT (DIPERKUAT)
             |--------------------------------------------------------------------------
             */
 
-            if (empty($messages))
-            {
-
+            if (empty($messages)) {
                 $messages[] = [
-
                     'role' => 'system',
-
                     'content' => '
 
-                    Kamu adalah customer service AI toko merchandise.
+Kamu adalah AI customer service AM Merchandise.
 
-                    ATURAN WAJIB:
-                    - Jawab singkat, jelas, dan mudah dipahami
-                    - Maksimal 1–2 kalimat
-                    - Tidak perlu penjelasan panjang
-                    - Gunakan bahasa santai
-                    - Jangan gunakan emoji berlebihan
-                    - Fokus hanya pada merchandise
+ATURAN WAJIB:
+- HANYA boleh menjawab tentang produk AM Merchandise
+- Jika di luar topik, jawab: "Saya hanya bisa membantu seputar produk AM Merchandise."
+- Jawaban singkat (1–2 kalimat)
+- Bahasa santai
 
-                    CARA JAWAB:
-                    - Langsung ke inti jawaban
-                    - Tidak perlu cerita tambahan
-                    - Tidak perlu penjelasan detail kecuali diminta
+PRODUK:
+- Hoodie anime
+- Kaos gaming
+- Topi streetwear
 
-                    Produk:
-                    - Hoodie anime
-                    - Kaos gaming
-                    - Topi streetwear
+INFO:
+- Pengiriman: 2–3 hari
+- Harga mulai: Rp80.000
 
-                    Informasi toko:
-                    - Nama: AM Merchandise
-                    - Dibuat oleh: Aditya Maula
-                    - Pengiriman: 2–3 hari
-                    - Harga mulai: Rp80.000
-
-                    Jika di luar topik merchandise, jawab:
-                    "Topik di luar pemahaman saya."
-
-                    '
-
+'
                 ];
             }
 
 
-
             /*
             |--------------------------------------------------------------------------
-            | TAMBAHKAN CHAT USER
+            | TAMBAH PESAN USER
             |--------------------------------------------------------------------------
             */
 
             $messages[] = [
-
                 'role' => 'user',
-
                 'content' => $message
-
             ];
-
 
 
             /*
@@ -159,7 +181,6 @@ class AIController extends Controller
             $messages = array_slice($messages, -10);
 
 
-
             /*
             |--------------------------------------------------------------------------
             | REQUEST KE MISTRAL AI
@@ -167,78 +188,45 @@ class AIController extends Controller
             */
 
             $response = Http::withoutVerifying()
-
                 ->withHeaders([
-
-                    'Authorization' =>
-                    'Bearer ' . env('MISTRAL_API_KEY'),
-
+                    'Authorization' => 'Bearer ' . env('MISTRAL_API_KEY'),
                     'Content-Type' => 'application/json',
-
                 ])
-
                 ->post(
-
                     'https://api.mistral.ai/v1/chat/completions',
-
                     [
-
-                            'model' => 'open-mistral-7b',
-
-                            'temperature' => 0.5,
-
-                            'max_tokens' => 150,
-
-                            'messages' => $messages
-
+                        'model' => 'open-mistral-7b',
+                        'temperature' => 0.5,
+                        'max_tokens' => 150,
+                        'messages' => $messages
                     ]
-
                 );
 
 
-
             /*
             |--------------------------------------------------------------------------
-            | AMBIL BALASAN AI
+            | AMBIL RESPONSE AI
             |--------------------------------------------------------------------------
             */
 
-            $reply =
-
-            $response['choices'][0]['message']['content']
-
-            ?? 'AI tidak merespon';
-
+            $reply = $response['choices'][0]['message']['content']
+                ?? 'AI tidak merespon';
 
 
             /*
             |--------------------------------------------------------------------------
-            | SIMPAN BALASAN AI KE MEMORY
+            | SIMPAN KE SESSION
             |--------------------------------------------------------------------------
             */
 
             $messages[] = [
-
                 'role' => 'assistant',
-
                 'content' => $reply
-
             ];
 
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | SIMPAN SESSION
-            |--------------------------------------------------------------------------
-            */
-
             session([
-
                 'chat_history' => $messages
-
             ]);
-
 
 
             /*
@@ -248,25 +236,15 @@ class AIController extends Controller
             */
 
             return response()->json([
-
                 'reply' => $reply
-
             ]);
-
-
 
         } catch (\Exception $e) {
 
-
-
             return response()->json([
-
                 'error' => true,
-
                 'message' => $e->getMessage()
-
             ]);
-
         }
     }
 }
