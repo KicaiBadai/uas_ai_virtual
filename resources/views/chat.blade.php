@@ -165,39 +165,49 @@
         @media (max-width: 768px) {
             #chat-container {
                 width: calc(100vw - 1rem) !important;
-                height: calc(100vh - 6rem) !important;
-                max-height: calc(100vh - 6rem) !important;
+                height: calc(100vh - 7rem) !important;
+                max-height: calc(100vh - 7rem) !important;
                 right: 0.5rem !important;
-                bottom: 5rem !important;
+                bottom: 5.5rem !important;
                 border-radius: 1.5rem !important;
                 max-width: 500px;
             }
 
             .chat-header {
-                padding: 0.75rem 1rem;
+                padding: 0.65rem 0.75rem;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 flex-shrink: 0;
+                gap: 0.5rem;
             }
 
             .chat-header h2 {
-                font-size: 0.875rem;
+                font-size: 0.8rem;
                 margin: 0;
+                line-height: 1.2;
+            }
+
+            .chat-header .text-purple-100 {
+                font-size: 0.65rem !important;
+                line-height: 1.1;
             }
 
             .close-btn {
-                width: 32px !important;
-                height: 32px !important;
-                min-width: 32px !important;
-                min-height: 32px !important;
-                font-size: 18px !important;
+                width: 28px !important;
+                height: 28px !important;
+                min-width: 28px !important;
+                min-height: 28px !important;
+                font-size: 16px !important;
                 padding: 0 !important;
                 flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             #chat-box {
-                padding: 0.75rem;
+                padding: 0.65rem;
                 flex: 1;
                 overflow-y: auto;
                 min-height: 0;
@@ -233,27 +243,34 @@
         @media (max-width: 480px) {
             #chat-container {
                 width: calc(100vw - 0.5rem) !important;
-                height: calc(100vh - 5rem) !important;
-                max-height: calc(100vh - 5rem) !important;
+                height: calc(100vh - 6rem) !important;
+                max-height: calc(100vh - 6rem) !important;
                 right: 0.25rem !important;
-                bottom: 4.5rem !important;
-                border-radius: 1rem !important;
+                bottom: 5rem !important;
+                border-radius: 0.875rem !important;
+            }
+
+            .chat-header {
+                padding: 0.6rem 0.6rem;
+                gap: 0.4rem;
             }
 
             .chat-header h2 {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
+                line-height: 1.1;
             }
 
             .chat-header .text-purple-100 {
-                font-size: 0.7rem !important;
+                font-size: 0.6rem !important;
+                line-height: 1;
             }
 
             .close-btn {
-                width: 28px !important;
-                height: 28px !important;
-                min-width: 28px !important;
-                min-height: 28px !important;
-                font-size: 16px !important;
+                width: 26px !important;
+                height: 26px !important;
+                min-width: 26px !important;
+                min-height: 26px !important;
+                font-size: 15px !important;
             }
 
             #message {
@@ -263,6 +280,7 @@
             .message-bubble {
                 font-size: 11px;
                 line-height: 1.4;
+                padding: 0.4rem;
             }
         }
 
@@ -482,15 +500,15 @@
         class="hidden fixed bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col z-50 animate-scaleIn"
     >
         <!-- HEADER -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3 md:p-6 flex justify-between items-center flex-shrink-0 chat-header">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-2 md:p-6 flex justify-between items-center flex-shrink-0 chat-header">
             <div class="flex-1 min-w-0">
-                <h2 class="font-bold text-sm md:text-lg">🤖 AI Assistant</h2>
-                <div class="flex items-center gap-2 text-xs md:text-sm text-purple-100">
-                    <span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span>
-                    Online
+                <h2 class="font-bold text-sm md:text-lg leading-tight">🤖 AI</h2>
+                <div class="flex items-center gap-1 text-xs md:text-sm text-purple-100">
+                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full pulse-dot"></span>
+                    <span class="hidden md:inline">Online</span>
                 </div>
             </div>
-            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 ml-2 close-btn flex items-center justify-center text-lg md:text-lg">
+            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 close-btn flex items-center justify-center text-lg md:text-lg">
                 ✕
             </button>
         </div>
@@ -498,12 +516,12 @@
         <!-- CHAT MESSAGES -->
         <div
             id="chat-box"
-            class="flex-1 overflow-y-auto p-3 md:p-6 bg-gradient-to-b from-gray-50 to-white space-y-2 md:space-y-4"
+            class="flex-1 overflow-y-auto p-2 md:p-6 bg-gradient-to-b from-gray-50 to-white space-y-2 md:space-y-4"
         >
             <div class="chat-message flex justify-start">
                 <div class="bg-white shadow-sm p-2 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] border border-gray-200">
                     <p class="text-gray-800 font-medium text-xs md:text-base">Halo 👋</p>
-                    <p class="text-gray-600 text-xs md:text-sm mt-1">Saya AI Assistant Merchandise kamu. Ada yang bisa aku bantu?</p>
+                    <p class="text-gray-600 text-xs md:text-sm mt-0.5">Ada yang bisa dibantu?</p>
                 </div>
             </div>
         </div>
@@ -514,7 +532,7 @@
                 <input
                     type="text"
                     id="message"
-                    placeholder="Tanya tentang produk..."
+                    placeholder="Tanya produk..."
                     class="flex-1 border border-gray-300 rounded-lg md:rounded-xl px-2 md:px-4 py-2 md:py-3 focus:outline-none input-focus transition-all placeholder-gray-400 text-xs md:text-base"
                     onkeydown="handleKeyPress(event)"
                 >
@@ -525,7 +543,7 @@
                     📤
                 </button>
             </div>
-            <p class="text-xs text-gray-400 mt-1">Tekan Enter untuk mengirim</p>
+            <p class="text-xs text-gray-400 mt-1">Enter untuk kirim</p>
         </div>
     </div>
 
