@@ -162,53 +162,131 @@
         }
 
         /* Responsive Chat */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             #chat-container {
-                width: 100vw !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                border-radius: 0 !important;
+                width: calc(100vw - 1rem) !important;
+                height: calc(100vh - 6rem) !important;
+                max-height: calc(100vh - 6rem) !important;
+                right: 0.5rem !important;
+                bottom: 5rem !important;
+                border-radius: 1.5rem !important;
+                max-width: 500px;
             }
 
             .chat-header {
-                padding: 1rem;
+                padding: 0.75rem 1rem;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                flex-shrink: 0;
+            }
+
+            .chat-header h2 {
+                font-size: 0.875rem;
+                margin: 0;
             }
 
             .close-btn {
-                width: 44px !important;
-                height: 44px !important;
-                min-width: 44px !important;
-                min-height: 44px !important;
-                font-size: 20px !important;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                min-height: 32px !important;
+                font-size: 18px !important;
                 padding: 0 !important;
+                flex-shrink: 0;
             }
 
             #chat-box {
-                padding: 1rem;
+                padding: 0.75rem;
+                flex: 1;
+                overflow-y: auto;
+                min-height: 0;
             }
 
             .chat-input-area {
-                padding: 0.75rem;
+                padding: 0.5rem;
+                flex-shrink: 0;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            .chat-input-area p {
+                font-size: 0.65rem;
+                display: none;
             }
 
             .message-bubble {
-                font-size: 13px;
+                font-size: 12px;
                 max-width: 90% !important;
+                padding: 0.5rem;
+            }
+
+            #message {
+                padding: 0.5rem 0.75rem;
+                font-size: 13px;
+            }
+
+            .chat-message {
+                margin: 0.25rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #chat-container {
+                width: calc(100vw - 0.5rem) !important;
+                height: calc(100vh - 5rem) !important;
+                max-height: calc(100vh - 5rem) !important;
+                right: 0.25rem !important;
+                bottom: 4.5rem !important;
+                border-radius: 1rem !important;
+            }
+
+            .chat-header h2 {
+                font-size: 0.8rem;
+            }
+
+            .chat-header .text-purple-100 {
+                font-size: 0.7rem !important;
+            }
+
+            .close-btn {
+                width: 28px !important;
+                height: 28px !important;
+                min-width: 28px !important;
+                min-height: 28px !important;
+                font-size: 16px !important;
+            }
+
+            #message {
+                font-size: 12px;
+            }
+
+            .message-bubble {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 769px) {
+            #chat-container {
+                width: 420px !important;
+                height: 600px !important;
+                right: 1.5rem !important;
+                bottom: 5rem !important;
+            }
+
+            .message-bubble {
+                font-size: 14px;
             }
         }
 
         /* Smooth transitions */
         .chat-visible {
-            display: flex;
+            display: flex !important;
         }
 
         .chat-hidden {
-            display: none;
+            display: none !important;
         }
     </style>
 </head>
@@ -401,18 +479,18 @@
     <!-- CHATBOX -->
     <div
         id="chat-container"
-        class="hidden fixed bottom-20 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[420px] h-[70vh] md:h-[600px] bg-white rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col z-50 animate-scaleIn sm:bottom-24"
+        class="hidden fixed bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col z-50 animate-scaleIn"
     >
         <!-- HEADER -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 md:p-6 flex justify-between items-center flex-shrink-0 chat-header">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3 md:p-6 flex justify-between items-center flex-shrink-0 chat-header">
             <div class="flex-1 min-w-0">
-                <h2 class="font-bold text-base md:text-lg">🤖 AI Assistant</h2>
+                <h2 class="font-bold text-sm md:text-lg">🤖 AI Assistant</h2>
                 <div class="flex items-center gap-2 text-xs md:text-sm text-purple-100">
                     <span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span>
                     Online
                 </div>
             </div>
-            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 ml-2 close-btn flex items-center justify-center text-xl md:text-lg">
+            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 ml-2 close-btn flex items-center justify-center text-lg md:text-lg">
                 ✕
             </button>
         </div>
@@ -420,34 +498,34 @@
         <!-- CHAT MESSAGES -->
         <div
             id="chat-box"
-            class="flex-1 overflow-y-auto p-4 md:p-6 bg-gradient-to-b from-gray-50 to-white space-y-3 md:space-y-4"
+            class="flex-1 overflow-y-auto p-3 md:p-6 bg-gradient-to-b from-gray-50 to-white space-y-2 md:space-y-4"
         >
             <div class="chat-message flex justify-start">
-                <div class="bg-white shadow-sm p-3 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] border border-gray-200">
-                    <p class="text-gray-800 font-medium text-sm md:text-base">Halo 👋</p>
+                <div class="bg-white shadow-sm p-2 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] border border-gray-200">
+                    <p class="text-gray-800 font-medium text-xs md:text-base">Halo 👋</p>
                     <p class="text-gray-600 text-xs md:text-sm mt-1">Saya AI Assistant Merchandise kamu. Ada yang bisa aku bantu?</p>
                 </div>
             </div>
         </div>
 
         <!-- INPUT AREA -->
-        <div class="p-3 md:p-4 border-t border-gray-200 bg-white flex-shrink-0 chat-input-area">
-            <div class="flex gap-2 md:gap-3">
+        <div class="p-2 md:p-4 border-t border-gray-200 bg-white flex-shrink-0 chat-input-area">
+            <div class="flex gap-2">
                 <input
                     type="text"
                     id="message"
                     placeholder="Tanya tentang produk..."
-                    class="flex-1 border border-gray-300 rounded-xl px-3 md:px-4 py-2 md:py-3 focus:outline-none input-focus transition-all placeholder-gray-400 text-sm md:text-base"
+                    class="flex-1 border border-gray-300 rounded-lg md:rounded-xl px-2 md:px-4 py-2 md:py-3 focus:outline-none input-focus transition-all placeholder-gray-400 text-xs md:text-base"
                     onkeydown="handleKeyPress(event)"
                 >
                 <button
                     onclick="sendMessage()"
-                    class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 md:px-6 rounded-xl font-bold hover:shadow-lg transition-all flex items-center justify-center text-lg md:text-xl flex-shrink-0"
+                    class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-2 md:px-6 py-2 rounded-lg md:rounded-xl font-bold hover:shadow-lg transition-all flex items-center justify-center text-base md:text-xl flex-shrink-0"
                 >
                     📤
                 </button>
             </div>
-            <p class="text-xs text-gray-400 mt-2">Tekan Enter untuk mengirim</p>
+            <p class="text-xs text-gray-400 mt-1">Tekan Enter untuk mengirim</p>
         </div>
     </div>
 
@@ -485,7 +563,7 @@
             const userMessageDiv = document.createElement('div');
             userMessageDiv.className = 'chat-message flex justify-end';
             userMessageDiv.innerHTML = `
-                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3 md:p-4 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md message-bubble">
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-2 md:p-4 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md message-bubble">
                     ${escapeHtml(message)}
                 </div>
             `;
@@ -503,7 +581,7 @@
             loadingDiv.className = 'chat-message flex justify-start';
             loadingDiv.id = 'loading-message';
             loadingDiv.innerHTML = `
-                <div class="bg-white shadow-sm p-3 md:p-4 rounded-2xl rounded-tl-sm border border-gray-200">
+                <div class="bg-white shadow-sm p-2 md:p-4 rounded-2xl rounded-tl-sm border border-gray-200">
                     <div class="loading-dots">
                         <span></span>
                         <span></span>
@@ -535,8 +613,8 @@
                 const aiMessageDiv = document.createElement('div');
                 aiMessageDiv.className = 'chat-message flex justify-start';
                 aiMessageDiv.innerHTML = `
-                    <div class="bg-white shadow-sm p-3 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] border border-gray-200 message-bubble">
-                        <p class="text-gray-800 text-sm md:text-base">${escapeHtml(aiReply)}</p>
+                    <div class="bg-white shadow-sm p-2 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] border border-gray-200 message-bubble">
+                        <p class="text-gray-800 text-xs md:text-base">${escapeHtml(aiReply)}</p>
                     </div>
                 `;
                 chatBox.appendChild(aiMessageDiv);
@@ -555,7 +633,7 @@
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'chat-message flex justify-start';
                 errorDiv.innerHTML = `
-                    <div class="bg-red-500 text-white p-3 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] shadow-md text-sm md:text-base">
+                    <div class="bg-red-500 text-white p-2 md:p-4 rounded-2xl rounded-tl-sm max-w-[85%] shadow-md text-xs md:text-base">
                         ⚠️ Terjadi kesalahan. Silakan coba lagi.
                     </div>
                 `;
