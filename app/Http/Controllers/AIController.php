@@ -22,6 +22,36 @@ class AIController extends Controller
 
             /*
             |--------------------------------------------------------------------------
+            | FILTER KATA KASAR / NSFW
+            |--------------------------------------------------------------------------
+            */
+
+            $blockedWords = [
+
+                // seksual / vulgar
+                'sex', 'seks', 'ngentot', 'memek', 'kontol',
+                'bersetubuh', 'hubungan badan', 'kelamin',
+                'vagina', 'penis', 'ewe', 'ewek',
+
+                // hewan + kasar
+                'anjing', 'bangsat', 'babi', 'kampret', 'tai',
+                'tolol', 'bego', 'goblok',
+
+                // internet slang vulgar
+                'porn', 'porno', 'bokep', 'shit', 'fuck'
+            ];
+
+            foreach ($blockedWords as $badWord) {
+                if (str_contains($message, $badWord)) {
+                    return response()->json([
+                        'reply' => 'Maaf, saya tidak dapat memproses kata atau topik tersebut.'
+                    ]);
+                }
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
             | FAQ MANUAL (FAST RESPONSE)
             |--------------------------------------------------------------------------
             */
@@ -49,7 +79,7 @@ class AIController extends Controller
 
             /*
             |--------------------------------------------------------------------------
-            | INTENT GUARD (ANTI OUTSIDE TOPIC)
+            | INTENT CHECK (ANTI OUTSIDE TOPIC)
             |--------------------------------------------------------------------------
             */
 
@@ -109,7 +139,7 @@ class AIController extends Controller
 
             /*
             |--------------------------------------------------------------------------
-            | SYSTEM PROMPT (FLEKSIBEL + NATURAL)
+            | SYSTEM PROMPT (NATURAL + FLEXIBLE)
             |--------------------------------------------------------------------------
             */
 
@@ -121,14 +151,15 @@ class AIController extends Controller
 Kamu adalah AI customer service AM Merchandise.
 
 ATURAN:
-- Boleh ngobrol normal (halo, apa kabar, dll)
-- Harus selalu mengarah ke produk toko secara natural
-- Tidak boleh menjawab pengetahuan umum (politik, sejarah, dll)
+- Boleh ngobrol santai (halo, apa kabar, dll)
+- Harus tetap mengarah ke produk toko secara natural
+- Tidak boleh menjawab pengetahuan umum di luar toko
+- Tidak boleh membahas hal seksual, vulgar, atau kasar
 - Jawaban 1–2 kalimat, santai
 
 TUJUAN:
-- Bantu pelanggan lihat produk
-- Rekomendasi barang
+- Membantu pelanggan melihat produk
+- Memberikan rekomendasi
 - Menjawab pertanyaan toko
 
 PRODUK:
