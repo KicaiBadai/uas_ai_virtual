@@ -31,11 +31,14 @@ class AIController extends Controller
                 // seksual / vulgar
                 'sex', 'seks', 'ngentot', 'memek', 'kontol',
                 'bersetubuh', 'hubungan badan', 'kelamin',
-                'vagina', 'penis', 'ewe', 'ewek',
+                'vagina', 'penis', 'ewe', 'ewek','jembut',
+                'tobrut',
 
                 // hewan + kasar
                 'anjing', 'bangsat', 'babi', 'kampret', 'tai',
                 'tolol', 'bego', 'goblok',
+
+            
 
                 // internet slang vulgar
                 'porn', 'porno', 'bokep', 'shit', 'fuck'
