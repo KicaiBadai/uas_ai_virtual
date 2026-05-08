@@ -61,7 +61,7 @@ class AIController extends Controller
 
             $faq = [
 
-                'member pkw/ bounty haeter maestro dan ayatra' => 
+                'member pkw' => 
                 '1. tusi
                 2. turtusi 
                 3. to see 
