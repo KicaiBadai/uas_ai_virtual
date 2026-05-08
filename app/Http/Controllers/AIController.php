@@ -69,10 +69,10 @@ class AIController extends Controller
                 5. 2 sea 
                 6. two sea 
                 7. two see 
-                "alasan menjadi pkw adalah 
+                alasan menjadi pkw adalah 
                 1. menghina ayatra
                 2. menghina maestro
-                3. mimpi basah tsunami trofi"',
+                3. mimpi basah tsunami trofi',
                 
                 'maestro' => 'maestro adalah tokoh utama dalam kemederkaan indonesia. dia telah memimpin pertempuran legenda di wallet 1980',
                 'apa itu partai komunis wallet' => 'pkw adalah partai komunis wallet yang mempunyai tujuan untuk menggeserkan sang maestro',
