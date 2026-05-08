@@ -74,7 +74,7 @@ class AIController extends Controller
                 3. mimpi basah tsunami trofi"',
                 
                 'maestro' => 'maestro adalah tokoh utama dalam kemederkaan indonesia. dia telah memimpin pertempuran legenda di wallet 1980',
-                'pkw' => 'pkw adalah partai komunis wallet yang mempunyai tujuan untuk menggeserkan sang maestro',
+                'apa itu pkw' => 'pkw adalah partai komunis wallet yang mempunyai tujuan untuk menggeserkan sang maestro',
                 'jam buka' => 'Toko buka setiap hari jam 08:00 sampai 22:00.',
                 'pengiriman' => 'Pengiriman memakan waktu sekitar 2-3 hari.',
                 'harga hoodie' => 'Harga hoodie mulai dari Rp180.000.',
