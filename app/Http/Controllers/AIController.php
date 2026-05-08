@@ -65,11 +65,12 @@ class AIController extends Controller
                 '1. tusi
                 2. turtusi 
                 3. to see 
-                4.tur to see \
+                4. tur to see 
                 5. 2 sea 
                 6. two sea 
                 7. two see 
-                "alasan menjadi pkw adalah 1. menghina ayatra
+                "alasan menjadi pkw adalah 
+                1. menghina ayatra
                 2. menghina maestro
                 3. mimpi basah tsunami trofi"',
                 
