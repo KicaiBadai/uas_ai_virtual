@@ -60,7 +60,7 @@ class AIController extends Controller
             */
 
             $faq = [
-                
+
                 'pkw' => 'pkw adalah partai komunis wallet yang mempunyai tujuan untuk menggeserkan sang maestro',
                 'jam buka' => 'Toko buka setiap hari jam 08:00 sampai 22:00.',
                 'pengiriman' => 'Pengiriman memakan waktu sekitar 2-3 hari.',
