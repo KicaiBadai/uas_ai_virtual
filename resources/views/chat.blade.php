@@ -352,7 +352,7 @@
             <div class="grid grid-cols-2 gap-3 md:gap-6 animate-fadeIn">
                 <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift">
                     <img src="https://i1-e.pinimg.com/736x/93/1b/31/931b31311fcaae210c3b21372fa7c6ed.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
-                    <h3 class="font-bold text-sm md:text-lg text-gray-900">Hoodie Anime</h3>
+                    <h3 class="font-bold text-sm md:text-lg text-gray-900">Hoodie Oversize</h3>
                     <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 180.000</p>
                     <p class="text-gray-500 text-xs md:text-sm mt-1">Desain eksklusif</p>
                 </div>
