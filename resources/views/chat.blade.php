@@ -351,21 +351,21 @@
 
             <div class="grid grid-cols-2 gap-3 md:gap-6 animate-fadeIn">
                 <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift">
-                    <img src="https://placehold.co/300x200/667eea/ffffff?text=Hoodie+Anime" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
+                    <img src="https://i1-e.pinimg.com/736x/93/1b/31/931b31311fcaae210c3b21372fa7c6ed.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
                     <h3 class="font-bold text-sm md:text-lg text-gray-900">Hoodie Anime</h3>
                     <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 180.000</p>
                     <p class="text-gray-500 text-xs md:text-sm mt-1">Desain eksklusif</p>
                 </div>
 
                 <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift">
-                    <img src="https://placehold.co/300x200/764ba2/ffffff?text=Kaos+Gaming" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
+                    <img src="https://i1-e.pinimg.com/1200x/d3/c1/66/d3c16693d9d5bd9d2e6f0fcbf39286e0.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
                     <h3 class="font-bold text-sm md:text-lg text-gray-900">Kaos Gaming</h3>
                     <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 95.000</p>
                     <p class="text-gray-500 text-xs md:text-sm mt-1">Nyaman dipakai</p>
                 </div>
 
                 <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift col-span-2">
-                    <img src="https://placehold.co/300x200/667eea/ffffff?text=Topi+Streetwear" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
+                    <img src="https://i1-e.pinimg.com/1200x/b4/7e/4b/b47e4b5832608092b88c1e1253bc664e.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
                     <h3 class="font-bold text-sm md:text-lg text-gray-900">Topi Streetwear</h3>
                     <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 120.000</p>
                 </div>
