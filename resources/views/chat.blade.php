@@ -389,7 +389,7 @@
                 <!-- CARD 1 -->
                 <div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover-lift group">
                     <div class="relative overflow-hidden bg-gradient-to-br from-purple-200 to-indigo-200 h-40 md:h-64">
-                        <img src="https://placehold.co/500x300/667eea/ffffff?text=Topi+Streetwear" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        <img src="https://i1-e.pinimg.com/1200x/b4/7e/4b/b47e4b5832608092b88c1e1253bc664e.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         <div class="absolute top-2 md:top-4 right-2 md:right-4 bg-purple-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold">
                             Trending
                         </div>
@@ -409,7 +409,7 @@
                 <!-- CARD 2 -->
                 <div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover-lift group">
                     <div class="relative overflow-hidden bg-gradient-to-br from-indigo-200 to-purple-200 h-40 md:h-64">
-                        <img src="https://placehold.co/500x300/764ba2/ffffff?text=Hoodie+Oversize" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        <img src="https://i1-e.pinimg.com/736x/93/1b/31/931b31311fcaae210c3b21372fa7c6ed.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         <div class="absolute top-2 md:top-4 right-2 md:right-4 bg-indigo-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold">
                             Bestseller
                         </div>
@@ -429,14 +429,14 @@
                 <!-- CARD 3 -->
                 <div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover-lift group">
                     <div class="relative overflow-hidden bg-gradient-to-br from-purple-200 to-pink-200 h-40 md:h-64">
-                        <img src="https://placehold.co/500x300/667eea/ffffff?text=Kaos+Anime" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        <img src="https://i1-e.pinimg.com/1200x/d3/c1/66/d3c16693d9d5bd9d2e6f0fcbf39286e0.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         <div class="absolute top-2 md:top-4 right-2 md:right-4 bg-pink-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold">
                             New
                         </div>
                     </div>
                     <div class="p-3 md:p-6">
-                        <h3 class="font-bold text-base md:text-xl mb-2 text-gray-900">Kaos Anime</h3>
-                        <p class="text-gray-600 mb-3 md:mb-4 text-sm md:text-base">Desain anime premium terbaru dengan kualitas cetak terbaik dan material berkualitas tinggi.</p>
+                        <h3 class="font-bold text-base md:text-xl mb-2 text-gray-900">Kaos Gaming</h3>
+                        <p class="text-gray-600 mb-3 md:mb-4 text-sm md:text-base">Desain gaming premium terbaru dengan kualitas cetak terbaik dan material berkualitas tinggi.</p>
                         <div class="flex justify-between items-center gap-2">
                             <span class="text-xl md:text-2xl font-bold gradient-text">Rp 95K</span>
                             <button class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-3 md:px-5 py-2 rounded-lg font-semibold text-sm md:text-base hover:shadow-lg transition-all">
