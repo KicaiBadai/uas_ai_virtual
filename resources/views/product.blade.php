@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merchandise Store</title>
+    <title>{{ $product['name'] }} - AM Merchandise</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -35,24 +35,9 @@
             background: #9ca3af;
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes scaleIn {
@@ -67,27 +52,8 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .animate-slideInUp {
-            animation: slideInUp 0.5s ease-out;
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .animate-fadeIn {
@@ -98,16 +64,12 @@
             animation: scaleIn 0.3s ease-out;
         }
 
-        .animate-slideInRight {
-            animation: slideInRight 0.3s ease-out;
-        }
-
         .pulse-dot {
             animation: bounce 2s infinite;
         }
 
         .chat-message {
-            animation: slideInUp 0.3s ease-out;
+            animation: scaleIn 0.3s ease-out;
         }
 
         .gradient-text {
@@ -210,25 +172,6 @@
         }
 
 
-        @keyframes highlightFlash {
-            0%, 100% {
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-                border: 2px solid transparent;
-            }
-            50% {
-                box-shadow: 0 0 25px 5px rgba(139, 92, 246, 0.5); /* purple glow */
-                border: 2px solid rgb(139, 92, 246);
-                transform: scale(1.02);
-            }
-        }
-
-        .highlight-product {
-            animation: highlightFlash 1.5s ease-out;
-            transition: all 0.5s ease;
-        }
-
-
-
         .loading-dots {
             display: inline-block;
         }
@@ -243,13 +186,8 @@
             margin: 0 2px;
         }
 
-        .loading-dots span:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .loading-dots span:nth-child(2) {
-            animation-delay: -0.16s;
-        }
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
 
         /* Responsive Chat */
         @media (max-width: 768px) {
@@ -382,179 +320,122 @@
                 right: 1.5rem !important;
                 bottom: 5rem !important;
             }
-
-            .message-bubble {
-                font-size: 14px;
-            }
-        }
-
-        /* Smooth transitions */
-        .chat-visible {
-            display: flex !important;
-        }
-
-        .chat-hidden {
-            display: none !important;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex flex-col">
 
     <!-- HEADER -->
-    <header class="bg-white shadow-md sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold gradient-text">
-                    AM Merchandise Store
-                </h1>
-                <p class="text-gray-500 text-xs md:text-sm">Koleksi fashion terbaik untuk gaya kamu</p>
-            </div>
-
-            <nav class="space-x-4 md:space-x-8 hidden md:block">
-                <a href="/" class="text-gray-700 font-medium hover:text-purple-600 transition">Home</a>
-                <a href="#produk" class="text-gray-700 font-medium hover:text-purple-600 transition">Produk</a>
-                <a href="#produk" onclick="filterCategory('Hoodie')" class="text-gray-700 font-medium hover:text-purple-600 transition">Hoodie</a>
-                <a href="#produk" onclick="filterCategory('Kaos')" class="text-gray-700 font-medium hover:text-purple-600 transition">Kaos</a>
-                <a href="#produk" onclick="filterCategory('Topi')" class="text-gray-700 font-medium hover:text-purple-600 transition">Topi</a>
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <span class="text-2xl font-bold gradient-text">AM Merchandise</span>
+            </a>
+            <nav class="space-x-8 hidden md:flex items-center">
+                <a href="/" class="text-gray-600 font-medium hover:text-purple-600 transition">Beranda</a>
+                <a href="/#produk" class="text-gray-600 font-medium hover:text-purple-600 transition">Produk</a>
+                <a href="https://wa.me/6281234567890" target="_blank" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all hover-lift">WhatsApp</a>
             </nav>
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-900 text-white py-12 md:py-24 overflow-hidden relative">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-40 md:w-80 h-40 md:h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-40 md:w-80 h-40 md:h-80 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-6 md:gap-12 items-center relative z-10">
-            <div class="animate-slideInUp">
-                <h2 class="text-3xl md:text-6xl font-bold leading-tight mb-4 md:mb-6">
-    Produk Unggulan AM Merchandise
-</h2>
-<p class="text-purple-100 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
-    Temukan <strong>Hoodie Attack on Titan</strong> (Rp 185.000), <strong>Kaos Solo Leveling</strong> (Rp 95.000), dan <strong>Topi Streetwear</strong> (Rp 120.000) dengan desain eksklusif.
-</p>
-<a href="#produk" class="inline-block bg-white text-purple-700 px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg hover:bg-gray-100 transition-all hover-lift shadow-lg w-full md:w-auto text-center">
-    🛍️ Lihat Koleksi
-</a>
-                </a>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 md:gap-6 animate-fadeIn">
-                <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift">
-                    <img src="https://i.pinimg.com/736x/87/d5/cd/87d5cd61e1312d7a25b3e03dbaca2b33.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
-                    <h3 class="font-bold text-sm md:text-lg text-gray-900">Hoodie Attack on Titan</h3>
-                    <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 185.000</p>
-                    <p class="text-gray-500 text-xs md:text-sm mt-1">Desain ikonik anime</p>
+    <!-- MAIN PRODUCT DETAILS -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 w-full animate-fadeIn">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden grid md:grid-cols-2 gap-8 p-6 md:p-12">
+            
+            <!-- LEFT: PRODUCT IMAGE -->
+            <div class="flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 p-4 relative group">
+                <div class="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-md">
+                    {{ $product['category'] }}
                 </div>
-
-                <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift">
-                    <img src="https://i.pinimg.com/1200x/1e/03/8f/1e038f3a4b2b1f0a32dd0d965370fc88.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
-                    <h3 class="font-bold text-sm md:text-lg text-gray-900">Kaos Solo Leveling</h3>
-                    <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 95.000</p>
-                    <p class="text-gray-500 text-xs md:text-sm mt-1">Motif karakter populer</p>
-                </div>
-
-                <div class="bg-white rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg hover-lift col-span-2">
-                    <img src="https://i.pinimg.com/736x/c8/89/53/c889534db223ad0d72c1071b92fbc206.jpg" class="rounded-lg md:rounded-xl mb-2 md:mb-4 w-full h-24 md:h-40 object-cover">
-                    <h3 class="font-bold text-sm md:text-lg text-gray-900">Topi Streetwear</h3>
-                    <p class="text-purple-600 font-semibold text-sm md:text-base">Rp 120.000</p>
-                    <p class="text-gray-500 text-xs md:text-sm mt-1">Gaya urbana modern</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUK -->
-    <section id="produk" class="py-12 md:py-20 px-4 md:px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-10 md:mb-14">
-                <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
-                    🛍️ Semua Produk
-                </h2>
-                <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-                    Koleksi merchandise anime & streetwear pilihan terbaik kami
-                </p>
+                <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="rounded-xl w-full h-80 md:h-[480px] object-cover hover:scale-105 transition-transform duration-500 shadow-sm">
             </div>
 
-            <!-- Tabs Kategori -->
-            <div class="flex justify-center gap-2 md:gap-4 mb-8 md:mb-12 flex-wrap">
-                <button onclick="filterCategory('all')" id="tab-all"
-                    class="tab-btn active-tab px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base transition-all">
-                    Semua
-                </button>
-                <button onclick="filterCategory('Hoodie')" id="tab-Hoodie"
-                    class="tab-btn px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base transition-all">
-                    🧥 Hoodie
-                </button>
-                <button onclick="filterCategory('Kaos')" id="tab-Kaos"
-                    class="tab-btn px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base transition-all">
-                    👕 Kaos
-                </button>
-                <button onclick="filterCategory('Topi')" id="tab-Topi"
-                    class="tab-btn px-4 md:px-6 py-2 rounded-full font-semibold text-sm md:text-base transition-all">
-                    🧢 Topi
-                </button>
-            </div>
+            <!-- RIGHT: DETAILED SPECS -->
+            <div class="flex flex-col justify-between">
+                <div>
+                    <nav class="text-sm text-gray-400 mb-4">
+                        <a href="/" class="hover:text-purple-600">Home</a> &gt; 
+                        <span class="text-gray-600 font-medium">{{ $product['name'] }}</span>
+                    </nav>
 
-            <style>
-                .tab-btn {
-                    background: #f3f4f6;
-                    color: #374151;
-                }
-                .tab-btn.active-tab {
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-                }
-                .tab-btn:hover:not(.active-tab) {
-                    background: #e5e7eb;
-                }
-                .product-card {
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                }
-                .product-card.hidden-card {
-                    display: none;
-                }
-            </style>
+                    <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-3">
+                        {{ $product['name'] }}
+                    </h1>
 
-            <!-- Grid Produk -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6" id="product-grid">
-                @foreach($products as $product)
-                <div class="product-card bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover-lift group"
-                     data-category="{{ $product['category'] }}"
-                     id="produk-{{ $product['slug'] }}">
-                    <div class="relative overflow-hidden h-36 md:h-52">
-                        <img src="{{ $product['image'] }}"
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                             alt="{{ $product['name'] }}"
-                             loading="lazy">
-                        @if(!empty($product['badge']))
-                        <div class="absolute top-2 right-2 bg-purple-600 text-white px-2 py-0.5 rounded-full text-xs font-bold">
-                            {{ $product['badge'] }}
-                        </div>
-                        @endif
-                        <div class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-0.5 rounded-full">
-                            {{ $product['category'] }}
+                    <div class="text-2xl md:text-3xl font-extrabold text-indigo-600 mb-6">
+                        {{ $product['price'] }}
+                    </div>
+
+                    <div class="border-t border-b border-gray-100 py-6 mb-6">
+                        <h3 class="font-bold text-gray-900 mb-2">Deskripsi Produk</h3>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+                            {{ $product['description'] }}
+                        </p>
+                    </div>
+
+                    <!-- FEATURES -->
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-900 mb-3">Keunggulan & Detail</h3>
+                        <ul class="space-y-2">
+                            @foreach($product['features'] as $feature)
+                            <li class="flex items-start gap-2.5 text-sm md:text-base text-gray-600">
+                                <span class="text-green-500 font-bold">✓</span>
+                                <span>{{ $feature }}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <!-- SIZE OPTIONS -->
+                    <div class="mb-8">
+                        <h3 class="font-bold text-gray-900 mb-3">Ukuran Tersedia</h3>
+                        <div class="flex gap-2">
+                            @foreach($product['sizes'] as $size)
+                            <span class="border border-gray-200 text-gray-700 hover:border-indigo-600 hover:text-indigo-600 cursor-pointer font-bold px-4 py-2 rounded-lg text-sm transition-all bg-white shadow-sm flex items-center justify-center min-w-[45px]">
+                                {{ $size }}
+                            </span>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="p-2.5 md:p-4">
-                        <h3 class="font-bold text-xs md:text-sm mb-1 text-gray-900 line-clamp-2 leading-tight">{{ $product['name'] }}</h3>
-                        <p class="text-purple-600 font-bold text-sm md:text-base mb-2 md:mb-3">{{ $product['price'] }}</p>
-                        <a href="/product/{{ $product['slug'] }}"
-                           class="block w-full text-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-1.5 md:py-2 rounded-lg font-semibold text-xs md:text-sm hover:shadow-lg transition-all">
-                            Lihat Detail
+                </div>
+
+                <!-- CHECKOUT BUTTON -->
+                <div>
+                    <a href="/checkout/{{ $product['slug'] }}" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-4 rounded-2xl font-bold text-lg hover:shadow-lg transition-all hover-lift shadow-md block">
+                        🛍️ Beli & Isi Form Pemesanan
+                    </a>
+                    <p class="text-xs text-center text-gray-400 mt-2">Isi data pengiriman & dapatkan struk sukses pemesanan</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- OTHER RECOMMENDATIONS -->
+        <section class="mt-16 md:mt-24">
+            <h2 class="text-xl md:text-3xl font-extrabold text-gray-900 mb-8 flex items-center gap-2">
+                <span>🔥</span> Rekomendasi Produk Lainnya
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                @foreach($otherProducts as $other)
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover-lift group border border-gray-100 p-4 flex gap-4 md:gap-6 items-center">
+                    <img src="{{ $other['image'] }}" class="w-24 md:w-32 h-24 md:h-32 object-cover rounded-xl shadow-inner bg-gray-50 flex-shrink-0">
+                    <div class="flex-grow min-w-0">
+                        <span class="text-xs bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{{ $other['category'] }}</span>
+                        <h3 class="font-bold text-base md:text-xl text-gray-900 mt-1 truncate">{{ $other['name'] }}</h3>
+                        <p class="text-indigo-600 font-extrabold text-sm md:text-base mt-0.5">{{ $other['price'] }}</p>
+                        <a href="/product/{{ $other['slug'] }}" class="mt-3 inline-flex items-center text-xs font-bold text-purple-600 hover:text-indigo-800 transition">
+                            Lihat Detail &rarr;
                         </a>
                     </div>
                 </div>
                 @endforeach
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- FOOTER SECTION (untuk spacing) -->
-    <section class="py-12 md:py-20 px-4 md:px-6 bg-gray-900 text-white">
+    <!-- FOOTER -->
+    <footer class="py-12 px-4 md:px-6 bg-gray-900 text-white mt-20">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
@@ -572,9 +453,8 @@
                 <div>
                     <h3 class="font-bold text-lg mb-4">🔗 Links</h3>
                     <ul class="text-gray-400 text-sm space-y-2">
-                        <li><a href="#" class="hover:text-white">Beranda</a></li>
-                        <li><a href="#" class="hover:text-white">Produk</a></li>
-                        <li><a href="#" class="hover:text-white">Kontak</a></li>
+                        <li><a href="/" class="hover:text-white">Beranda</a></li>
+                        <li><a href="https://wa.me/6281234567890" target="_blank" class="hover:text-white">Kontak</a></li>
                     </ul>
                 </div>
                 <div>
@@ -587,13 +467,13 @@
                 <p>&copy; 2024 Merchandise Store. Semua hak dilindungi.</p>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- FLOATING BUTTON & CHATBOX -->
+    <!-- CHATBOT FLOATING BUTTON -->
     <button
         onclick="toggleChat()"
         id="chat-btn"
-        class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white w-14 md:w-16 h-14 md:h-16 rounded-full shadow-2xl text-xl md:text-2xl hover:scale-110 transition-all z-40 hover:shadow-purple-500/50 flex items-center justify-center animate-slideInRight"
+        class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white w-14 md:w-16 h-14 md:h-16 rounded-full shadow-2xl text-xl md:text-2xl hover:scale-110 transition-all z-40 hover:shadow-purple-500/50 flex items-center justify-center"
     >
         💬
     </button>
@@ -612,7 +492,7 @@
                     <span class="hidden md:inline">Online</span>
                 </div>
             </div>
-            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 close-btn flex items-center justify-center text-lg md:text-lg">
+            <button onclick="toggleChat()" class="hover:bg-purple-500 rounded-lg transition flex-shrink-0 close-btn flex items-center justify-center text-lg">
                 ✕
             </button>
         </div>
@@ -652,6 +532,7 @@
         </div>
     </div>
 
+    <!-- SCRIPTS -->
     <script>
         function toggleChat() {
             const chatContainer = document.getElementById('chat-container');
@@ -676,9 +557,7 @@
             const input = document.getElementById('message');
             const message = input.value.trim();
 
-            if (message === '') {
-                return;
-            }
+            if (message === '') return;
 
             const chatBox = document.getElementById('chat-box');
 
@@ -699,11 +578,8 @@
             `;
             chatBox.appendChild(userMessageDiv);
 
-            // KOSONGKAN INPUT
             input.value = '';
             input.focus();
-
-            // AUTO SCROLL
             chatBox.scrollTop = chatBox.scrollHeight;
 
             // TAMPILKAN LOADING
@@ -738,7 +614,6 @@
                 const data = await response.json();
                 const aiReply = data.reply || 'Maaf, saya tidak bisa merespon sekarang. Coba lagi nanti.';
 
-                // HAPUS LOADING
                 const loadingMsg = document.getElementById('loading-message');
                 if (loadingMsg) loadingMsg.remove();
 
@@ -746,7 +621,6 @@
                 history.push({ role: 'assistant', content: aiReply });
                 sessionStorage.setItem('chat_history', JSON.stringify(history));
 
-                // TAMPILKAN REPLY AI
                 const aiMessageDiv = document.createElement('div');
                 aiMessageDiv.className = 'chat-message flex justify-start';
                 aiMessageDiv.innerHTML = `
@@ -755,19 +629,14 @@
                     </div>
                 `;
                 chatBox.appendChild(aiMessageDiv);
-
-
-                // AUTO SCROLL
                 chatBox.scrollTop = chatBox.scrollHeight;
 
             } catch (error) {
                 console.error('Error:', error);
 
-                // HAPUS LOADING
                 const loadingMsg = document.getElementById('loading-message');
                 if (loadingMsg) loadingMsg.remove();
 
-                // TAMPILKAN ERROR
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'chat-message flex justify-start';
                 errorDiv.innerHTML = `
@@ -779,37 +648,6 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Intercept clicks on links inside chat box that point to products
-        document.getElementById('chat-box').addEventListener('click', function(event) {
-            const target = event.closest ? event.target.closest('a') : event.target;
-            if (target && target.tagName === 'A' && target.getAttribute('href') && target.getAttribute('href').startsWith('#produk-')) {
-                event.preventDefault();
-                const elementId = target.getAttribute('href').substring(1);
-                const element = document.getElementById(elementId);
-                if (element) {
-                    // Close the chat box
-                    toggleChat();
-                    
-                    // Wait a bit for the chat close animation, then scroll smoothly
-                    setTimeout(() => {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-                        // Apply the highlight flashing animation
-                        element.classList.add('highlight-product');
-                        setTimeout(() => {
-                            element.classList.remove('highlight-product');
-                        }, 1500);
-                    }, 300);
-                }
-            }
-        });
 
         // Load existing session history into markdown and scroll to bottom
         document.addEventListener('DOMContentLoaded', () => {
@@ -847,28 +685,6 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         });
-
-
-        // ===== FILTER KATEGORI =====
-        function filterCategory(category) {
-            const cards = document.querySelectorAll('.product-card');
-            const tabs = document.querySelectorAll('.tab-btn');
-
-            // Update active tab
-            tabs.forEach(tab => tab.classList.remove('active-tab'));
-            const activeTab = document.getElementById(category === 'all' ? 'tab-all' : 'tab-' + category);
-            if (activeTab) activeTab.classList.add('active-tab');
-
-            // Show/hide cards
-            cards.forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                if (category === 'all' || cardCategory === category) {
-                    card.classList.remove('hidden-card');
-                } else {
-                    card.classList.add('hidden-card');
-                }
-            });
-        }
     </script>
 
 </body>
