@@ -1,41 +1,165 @@
 # UAS AI Virtual - Chatbot AM Merchandise
 
-[![Laravel Version](https://img.shields.io/badge/Laravel-v10.x%20%2F%20v11.x-red)](https://laravel.com)
-[![AI Integration](https://img.shields.io/badge/AI%20Model-Mistral%20AI%20(open--mistral--7b)-orange)](https://mistral.ai)
-[![Database](https://img.shields.io/badge/Database-None%20(Knowledge%20Base)-lightgrey)](#)
+![Laravel](https://img.shields.io/badge/Laravel-v10.x%20%2F%20v11.x-red)
+![AI Integration](https://img.shields.io/badge/AI%20Model-Mistral%20AI%20\(open--mistral--7b\)-orange)
+![Database](https://img.shields.io/badge/Database-None%20\(Knowledge%20Base\)-lightgrey)
 
-Proyek **UAS AI Virtual** ini adalah aplikasi Chatbot Customer Service pintar untuk toko online bernama **"AM Merchandise"**. Aplikasi ini dibangun menggunakan framework **Laravel (PHP)** pada sisi backend dan diintegrasikan dengan **Mistral AI API** (`open-mistral-7b`) sebagai otak pemrosesan bahasa alami (NLP).
+## 📖 Deskripsi Proyek
 
-Proyek ini dirancang **tanpa database (No-Database)**. Seluruh informasi mengenai katalog produk (Hoodie Anime, Kaos Anime, Topi), harga, link detail, gambar, serta aturan operasional toko ditanamkan langsung sebagai *Knowledge Base* di dalam *System Prompt* aplikasi.
+**UAS AI Virtual** merupakan aplikasi **Chatbot Customer Service berbasis Artificial Intelligence** untuk toko online **AM Merchandise**. Aplikasi ini dikembangkan menggunakan **Laravel (PHP)** sebagai backend dan terintegrasi dengan **Mistral AI API** (`open-mistral-7b`) untuk memahami serta merespons pertanyaan pelanggan secara otomatis.
+
+Berbeda dengan aplikasi e-commerce pada umumnya, proyek ini menerapkan konsep **No Database**, di mana seluruh informasi produk, harga, gambar, tautan produk, dan aturan operasional toko disimpan langsung di dalam **Knowledge Base** yang tertanam pada *System Prompt* AI.
+
+Dengan pendekatan ini, chatbot dapat memberikan informasi produk secara cepat tanpa memerlukan proses query database.
+
+---
 
 ## 🚀 Fitur Utama
 
-- **AI Customer Service yang Fokus (In-Context)**: Chatbot dilatih secara ketat untuk hanya menjawab pertanyaan seputar katalog produk AM Merchandise. Jika pengguna bertanya di luar topik toko, AI akan mengarahkan kembali ke produk secara halus.
-- **Sistem Proteksi Konten (Content Filter)**: Dilengkapi dengan fitur pemfilteran kata-kata kasar, vulgar, atau NSFW sebelum pesan dikirim ke API Mistral.
-- **Pencegahan Redireksi Eksternal**: Sistem dirancang untuk menjaga alur pembelian tetap berada di dalam ekosistem web (menggunakan tautan produk internal) dan membatasi pengalihan otomatis ke WhatsApp atau e-commerce lain secara tidak relevan.
-- **Format Respons Kaya (Rich Formatting)**: AI secara otomatis menampilkan gambar produk menggunakan format Markdown gambar `![nama](url)` dan menyertakan link detail produk (`[Lihat Detail](/product/slug)`).
+### 🤖 AI Customer Service Berbasis NLP
 
-## 🛠️ Tech Stack
+Chatbot mampu memahami pertanyaan pelanggan menggunakan teknologi **Natural Language Processing (NLP)** melalui Mistral AI.
 
-- **Backend Framework**: Laravel (PHP)
-- **AI Engine**: Mistral AI API Model `open-mistral-7b`
-- **HTTP Client**: Laravel Http Facade (untuk komunikasi dengan API Mistral)
-- **Frontend**: Blade Templating / HTML, CSS, JavaScript (Tailwind CSS)
+### 🎯 Fokus pada Katalog Produk
 
-## 📁 Struktur Folder Proyek
+AI hanya melayani pertanyaan yang berkaitan dengan produk AM Merchandise. Jika pengguna bertanya di luar topik, chatbot akan mengarahkan percakapan kembali ke informasi produk secara sopan.
 
-Berikut adalah struktur folder penting dalam proyek ini yang merepresentasikan arsitektur tanpa database:
+### 🛡️ Content Filtering
+
+Sistem dilengkapi dengan filter untuk mendeteksi dan memblokir kata-kata:
+
+* Kasar
+* Vulgar
+* NSFW (Not Safe For Work)
+
+sebelum dikirim ke API AI.
+
+### 🔒 Pencegahan Redireksi Eksternal
+
+Chatbot dirancang untuk menjaga alur pembelian tetap berada di dalam website dan menghindari pengalihan otomatis ke platform eksternal yang tidak relevan.
+
+### 🖼️ Rich Product Response
+
+AI dapat menampilkan:
+
+* Gambar produk menggunakan Markdown Image
+* Link detail produk
+* Informasi harga
+* Deskripsi produk
+
+secara otomatis dalam format yang lebih menarik.
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+| Teknologi             | Keterangan            |
+| --------------------- | --------------------- |
+| Laravel               | Framework Backend PHP |
+| Mistral AI API        | Mesin AI/NLP          |
+| Blade Template        | Tampilan Frontend     |
+| HTML, CSS, JavaScript | User Interface        |
+| Tailwind CSS          | Styling Frontend      |
+
+---
+
+## 📂 Struktur Folder Proyek
 
 ```text
 uas_ai_virtual/
 ├── app/
 │   └── Http/
 │       └── Controllers/
-│           └── AIController.php  # Memuat logika Filter Kata, System Prompt (Knowledge Base), dan API Call
+│           └── AIController.php
+│               # Logika chatbot, filter kata,
+│               # knowledge base, dan API Mistral
+│
 ├── config/
+│
 ├── routes/
-│   └── web.php                  # Jalur routing untuk aplikasi dan API chatbot
+│   └── web.php
+│       # Routing aplikasi
+│
 ├── resources/
-│   └── views/                   # Antarmuka tampilan chat (Blade)
-├── .env.example                 # Template untuk konfigurasi API Key
-└── README.md                    # Dokumentasi ini
+│   └── views/
+│       # Tampilan antarmuka chatbot (Blade)
+│
+├── .env.example
+│   # Template konfigurasi environment
+│
+└── README.md
+    # Dokumentasi proyek
+```
+
+---
+
+## ⚙️ Instalasi dan Menjalankan Proyek
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/KicaiBadai/uas_ai_virtual.git
+cd uas_ai_virtual
+```
+
+### 2. Install Dependency
+
+Pastikan Composer sudah terinstall, kemudian jalankan:
+
+```bash
+composer install
+```
+
+### 3. Konfigurasi Environment
+
+Salin file `.env.example` menjadi `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Jika menggunakan Windows:
+
+```bash
+copy .env.example .env
+```
+
+Generate Laravel Application Key:
+
+```bash
+php artisan key:generate
+```
+
+Tambahkan API Key Mistral pada file `.env`:
+
+```env
+MISTRAL_API_KEY=isi_dengan_api_key_mistral_anda
+```
+
+> Karena proyek ini tidak menggunakan database, konfigurasi database dapat dikosongkan atau diabaikan.
+
+### 4. Jalankan Server Laravel
+
+Aktifkan XAMPP
+
+lalu
+```bash
+php artisan serve
+```
+
+Aplikasi dapat diakses melalui browser pada alamat:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 💡 Cara Kerja Sistem
+
+1. Pengguna mengirim pesan melalui antarmuka chatbot.
+2. Sistem melakukan pemeriksaan terhadap kata-kata yang dilarang.
+3. Pertanyaan pengguna digabungkan dengan Knowledge Base AM Merchandise.
+4. Permintaan dikirim ke Mistral AI API.
+5. AI menghasilkan respons berdasarkan informasi produk yang tersedia.
+6. Respons ditampilkan kembali kepada pengguna.
