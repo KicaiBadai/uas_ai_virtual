@@ -20,7 +20,7 @@
     </div>
 
     <!-- Quick Stats Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Stat Item 1 -->
         <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-between">
             <div>
@@ -43,28 +43,48 @@
             </div>
         </div>
 
-        <!-- Stat Item 3 -->
+        <!-- Stat Item 3: Total Orders -->
         <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-between">
             <div>
-                <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Status API Key</span>
-                <span class="text-sm font-bold {{ $stats['has_api_key'] ? 'text-emerald-600' : 'text-amber-500' }}">
-                    {{ $stats['has_api_key'] ? '🟢 Terkonfigurasi' : '⚠️ Belum Diset' }}
-                </span>
+                <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Pesanan</span>
+                <span class="text-3xl font-bold text-gray-800">{{ $stats['total_orders'] }}</span>
             </div>
-            <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl font-bold">
-                🔑
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-xl font-bold">
+                📦
             </div>
         </div>
 
-        <!-- Stat Item 4 -->
+        <!-- Stat Item 4: Pending Orders -->
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-between">
+            <div>
+                <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Pesanan Pending</span>
+                <span class="text-3xl font-bold text-amber-600">{{ $stats['pending_orders'] }}</span>
+            </div>
+            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl font-bold">
+                ⏳
+            </div>
+        </div>
+
+        <!-- Stat Item 5: Revenue -->
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-between">
+            <div>
+                <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Omset</span>
+                <span class="text-2xl font-bold text-emerald-600">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</span>
+            </div>
+            <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl font-bold">
+                💰
+            </div>
+        </div>
+
+        <!-- Stat Item 6: Model AI -->
         <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-between">
             <div>
                 <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Model AI Aktif</span>
-                <span class="text-sm font-bold text-blue-600 uppercase truncate max-w-[150px] block" title="{{ $stats['api_model'] }}">
+                <span class="text-sm font-bold text-gray-700 uppercase truncate max-w-[150px] block" title="{{ $stats['api_model'] }}">
                     {{ $stats['api_model'] }}
                 </span>
             </div>
-            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-xl font-bold">
+            <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-600 text-xl font-bold">
                 🤖
             </div>
         </div>

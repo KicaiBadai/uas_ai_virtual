@@ -96,6 +96,9 @@ class AdminController extends Controller
             'categories' => Product::distinct('category')->count('category'),
             'has_api_key' => !empty(Setting::get('mistral_api_key')),
             'api_model' => Setting::get('mistral_model', 'open-mistral-7b'),
+            'total_orders' => \App\Models\Order::count(),
+            'pending_orders' => \App\Models\Order::where('status', 'pending')->count(),
+            'total_revenue' => \App\Models\Order::sum('total_price'),
         ];
 
         return view('admin.dashboard', compact('stats'));
@@ -133,6 +136,7 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'features' => 'nullable|array',
             'sizes' => 'nullable|array',
+            'stock' => 'required|integer|min:0',
         ]);
 
         // Process features and sizes
@@ -174,6 +178,7 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'features' => 'nullable|array',
             'sizes' => 'nullable|array',
+            'stock' => 'required|integer|min:0',
         ]);
 
         $validated['features'] = $request->input('features', []);
@@ -233,5 +238,29 @@ class AdminController extends Controller
         Setting::set('dataset_content', $validated['dataset_content'] ?? '');
 
         return back()->with('success', 'Pengaturan AI dan Dataset berhasil diperbarui.');
+    }
+
+    /**
+     * List all orders in database.
+     */
+    public function ordersIndex()
+    {
+        $orders = \App\Models\Order::with('product')->latest()->get();
+        return view('admin.orders.index', compact('orders'));
+    }
+
+    /**
+     * Update order status manually.
+     */
+    public function orderUpdateStatus(Request $request, \App\Models\Order $order)
+    {
+        $validated = $request->validate([
+            'status' => 'required|string|in:pending,diproses,dikirim,selesai'
+        ]);
+
+        $oldStatus = $order->status;
+        $order->update(['status' => $validated['status']]);
+
+        return back()->with('success', "Status pesanan {$order->receipt_number} berhasil diubah dari '{$oldStatus}' menjadi '{$order->status}'.");
     }
 }

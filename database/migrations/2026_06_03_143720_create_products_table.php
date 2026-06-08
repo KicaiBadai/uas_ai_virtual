@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('features')->nullable();
             $table->json('sizes')->nullable();
+            $table->integer('stock')->default(0);
             $table->timestamps();
         });
     }

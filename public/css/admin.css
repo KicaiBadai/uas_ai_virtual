@@ -1,0 +1,46 @@
+/* admin.css - Glassmorphism theme and admin UI styles */
+
+/* Glass effect background */
+.bg-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1rem;
+}
+
+/* Purple gradient for chat bubbles */
+.chat-bubble-user {
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
+  color: white;
+}
+.chat-bubble-ai {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  color: #1f2937; /* dark text */
+}
+.chat-bubble-error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Timestamp style */
+.timestamp {
+  opacity: 0.7;
+}
+
+/* Search input style */
+.search-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Footer complaint form */
+footer {
+  background: linear-gradient(135deg, #f5d0fe 0%, #c084fc 100%);
+  color: #1e293b;
+}
+
+/* Toast custom colors */
+.toast-success {
+  background-color: #4ade80 !important; /* emerald 400 */
+}

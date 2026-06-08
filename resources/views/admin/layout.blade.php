@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Admin Panel AM Merchandise</title>
     <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -51,9 +53,19 @@
                 <span class="text-lg">🛍️</span> CRUD Produk
             </a>
 
+            <a href="{{ route('admin.orders.index') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 transition font-medium text-sm {{ Route::is('admin.orders.*') ? 'sidebar-active text-white' : '' }}">
+                <span class="text-lg">📦</span> Kelola Pesanan
+            </a>
+
             <a href="{{ route('admin.ai-settings') }}" 
                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 transition font-medium text-sm {{ Route::is('admin.ai-settings') ? 'sidebar-active text-white' : '' }}">
-                <span class="text-lg">🤖</span> Kelola API & Dataset
+                <span class="text-lg">⚙️</span> Kelola API & Dataset
+            </a>
+
+            <a href="{{ route('admin.chat') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-800 transition font-medium text-sm {{ Route::is('admin.chat') ? 'sidebar-active text-white' : '' }}">
+                <span class="text-lg">🤖</span> Chatbot Admin
             </a>
         </nav>
 
@@ -131,5 +143,18 @@
             sidebar.classList.toggle('inset-0');
         }
     </script>
+<!-- Footer Complaint -->
+<!-- Complaint form moved to landing page -->
+<!-- Toast for copy notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+  <div id="copyToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">Pesan berhasil disalin</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/admin-scripts.js') }}"></script>
 </body>
 </html>

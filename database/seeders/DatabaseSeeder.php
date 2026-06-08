@@ -84,7 +84,8 @@ ATURAN KOMUNIKASI:
                     'Kantong Kangaroo depan yang luas',
                     'Tali hoodie tebal dengan ujung besi premium'
                 ],
-                'sizes' => ['M', 'L', 'XL', 'XXL']
+                'sizes' => ['M', 'L', 'XL', 'XXL'],
+                'stock' => 15
             ],
             [
                 'slug' => 'hoodie-akatsuki',
@@ -101,7 +102,8 @@ ATURAN KOMUNIKASI:
                     'Model Oversized Fit ala streetwear modern',
                     'Kualitas jahitan double-stitch standar ekspor'
                 ],
-                'sizes' => ['S', 'M', 'L', 'XL', 'XXL']
+                'sizes' => ['S', 'M', 'L', 'XL', 'XXL'],
+                'stock' => 20
             ],
             [
                 'slug' => 'hoodie-luffy-g5',
@@ -118,7 +120,8 @@ ATURAN KOMUNIKASI:
                     'Rib elastis anti-melar di lengan dan pinggang',
                     'Nyaman digunakan untuk iklim tropis maupun cuaca dingin'
                 ],
-                'sizes' => ['M', 'L', 'XL', 'XXL']
+                'sizes' => ['M', 'L', 'XL', 'XXL'],
+                'stock' => 8
             ],
             [
                 'slug' => 'hoodie-tanjiro',
@@ -135,7 +138,8 @@ ATURAN KOMUNIKASI:
                     'Kupluk hoodie berlapis furing kain hitam',
                     'Tekstur kain sangat halus tidak berbulu'
                 ],
-                'sizes' => ['M', 'L', 'XL']
+                'sizes' => ['M', 'L', 'XL'],
+                'stock' => 12
             ],
             [
                 'slug' => 'hoodie-cyberpunk',
@@ -152,7 +156,8 @@ ATURAN KOMUNIKASI:
                     'Desain kerah tinggi (high collar) unik',
                     'Kantong samping ber-resleting tak terlihat (hidden zip)'
                 ],
-                'sizes' => ['L', 'XL', 'XXL']
+                'sizes' => ['L', 'XL', 'XXL'],
+                'stock' => 5
             ],
             [
                 'slug' => 'kaos-solo-leveling',
@@ -169,7 +174,8 @@ ATURAN KOMUNIKASI:
                     'Jahitan pundak rantai rapi khas kaos distro',
                     'Kain adem menyerap keringat dengan sangat baik'
                 ],
-                'sizes' => ['S', 'M', 'L', 'XL']
+                'sizes' => ['S', 'M', 'L', 'XL'],
+                'stock' => 25
             ],
             [
                 'slug' => 'kaos-gojo',
@@ -186,7 +192,8 @@ ATURAN KOMUNIKASI:
                     'Potongan kaos Regular Fit nyaman',
                     'Label leher satin lembut anti-gatal'
                 ],
-                'sizes' => ['M', 'L', 'XL', 'XXL']
+                'sizes' => ['M', 'L', 'XL', 'XXL'],
+                'stock' => 18
             ],
             [
                 'slug' => 'kaos-eva01',
@@ -203,7 +210,8 @@ ATURAN KOMUNIKASI:
                     'Warna ungu neon retro khas mecha EVA-01',
                     'Jahitan samping ganda yang kokoh'
                 ],
-                'sizes' => ['M', 'L', 'XL', 'XXL']
+                'sizes' => ['M', 'L', 'XL', 'XXL'],
+                'stock' => 10
             ],
             [
                 'slug' => 'kaos-pochita',
@@ -220,7 +228,8 @@ ATURAN KOMUNIKASI:
                     'Desain minimalis di dada tengah',
                     'Unisex cocok untuk pria maupun wanita'
                 ],
-                'sizes' => ['S', 'M', 'L', 'XL']
+                'sizes' => ['S', 'M', 'L', 'XL'],
+                'stock' => 30
             ],
             [
                 'slug' => 'kaos-killua',
@@ -237,7 +246,8 @@ ATURAN KOMUNIKASI:
                     'Jahitan rantai 3 jarum sangat kuat',
                     'Bahan dingin tidak panas dipakai siang hari'
                 ],
-                'sizes' => ['M', 'L', 'XL']
+                'sizes' => ['M', 'L', 'XL'],
+                'stock' => 14
             ],
             [
                 'slug' => 'topi-streetwear',
@@ -254,7 +264,8 @@ ATURAN KOMUNIKASI:
                     'Pengatur ukuran gesper besi logam anti karat',
                     'Lidah topi melengkung natural (Curved Cap)'
                 ],
-                'sizes' => ['All Size (Adjustable)']
+                'sizes' => ['All Size (Adjustable)'],
+                'stock' => 22
             ],
             [
                 'slug' => 'topi-akatsuki',
@@ -271,7 +282,8 @@ ATURAN KOMUNIKASI:
                     'Pengatur ukuran snapback plastik klasik',
                     'Lidah datar (Flat Visor) trendy'
                 ],
-                'sizes' => ['All Size (Adjustable)']
+                'sizes' => ['All Size (Adjustable)'],
+                'stock' => 15
             ],
             [
                 'slug' => 'topi-law-bucket',
@@ -288,7 +300,8 @@ ATURAN KOMUNIKASI:
                     'Lingkar kepala ukuran standar dewasa 58cm',
                     'Brim melingkar pelindung matahari'
                 ],
-                'sizes' => ['Medium (58cm)']
+                'sizes' => ['Medium (58cm)'],
+                'stock' => 9
             ],
             [
                 'slug' => 'topi-cyberpunk',
@@ -305,7 +318,8 @@ ATURAN KOMUNIKASI:
                     'Gesper belakang tipe velcro strap praktis',
                     'Kombinasi panel warna abu-hitam modern'
                 ],
-                'sizes' => ['All Size (Adjustable)']
+                'sizes' => ['All Size (Adjustable)'],
+                'stock' => 11
             ],
             [
                 'slug' => 'topi-beanie',
@@ -322,7 +336,8 @@ ATURAN KOMUNIKASI:
                     'Bahan lembut tidak menimbulkan gatal di dahi',
                     'Simpel polos tanpa motif cocok dipadukan pakaian apa saja'
                 ],
-                'sizes' => ['All Size (Super Stretch)']
+                'sizes' => ['All Size (Super Stretch)'],
+                'stock' => 40
             ]
         ];
 

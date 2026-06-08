@@ -363,8 +363,13 @@
                         {{ $product['name'] }}
                     </h1>
 
-                    <div class="text-2xl md:text-3xl font-extrabold text-indigo-600 mb-6">
-                        {{ $product['price'] }}
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="text-2xl md:text-3xl font-extrabold text-indigo-600">
+                            {{ $product['price'] }}
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $product['stock'] > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                            {{ $product['stock'] > 0 ? 'Stok: ' . $product['stock'] . ' pcs' : 'Stok Habis' }}
+                        </span>
                     </div>
 
                     <div class="border-t border-b border-gray-100 py-6 mb-6">
@@ -402,9 +407,15 @@
 
                 <!-- CHECKOUT BUTTON -->
                 <div>
-                    <a href="/checkout/{{ $product['slug'] }}" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-4 rounded-2xl font-bold text-lg hover:shadow-lg transition-all hover-lift shadow-md block">
-                        🛍️ Beli & Isi Form Pemesanan
-                    </a>
+                    @if($product['stock'] > 0)
+                        <a href="/checkout/{{ $product['slug'] }}" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-4 rounded-2xl font-bold text-lg hover:shadow-lg transition-all hover-lift shadow-md block">
+                            🛍️ Beli & Isi Form Pemesanan
+                        </a>
+                    @else
+                        <button disabled class="w-full bg-gray-350 bg-gray-300 text-gray-500 text-center py-4 rounded-2xl font-bold text-lg cursor-not-allowed block">
+                            ❌ Stok Habis
+                        </button>
+                    @endif
                     <p class="text-xs text-center text-gray-400 mt-2">Isi data pengiriman & dapatkan struk sukses pemesanan</p>
                 </div>
 
@@ -455,6 +466,7 @@
                     <ul class="text-gray-400 text-sm space-y-2">
                         <li><a href="/" class="hover:text-white">Beranda</a></li>
                         <li><a href="https://wa.me/6281234567890" target="_blank" class="hover:text-white">Kontak</a></li>
+                        <li><a href="{{ route('login') }}" class="hover:text-white">Login Admin</a></li>
                     </ul>
                 </div>
                 <div>

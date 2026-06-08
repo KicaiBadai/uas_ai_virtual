@@ -174,51 +174,52 @@
             document.getElementById('receipt-detail').classList.remove('hidden');
 
             // Populate data struk
-            document.getElementById('invoice-no').innerText = order.invoiceNo;
-            document.getElementById('order-date').innerText = order.date;
-            document.getElementById('product-img').src = order.productImage;
-            document.getElementById('product-title').innerText = order.productName;
+            document.getElementById('invoice-no').innerText = order.receipt_number;
+            document.getElementById('order-date').innerText = order.created_at;
+            document.getElementById('product-img').src = order.product_image;
+            document.getElementById('product-title').innerText = order.product_name;
             document.getElementById('product-size').innerText = order.size;
-            document.getElementById('product-qty').innerText = order.qty + ' pcs';
+            document.getElementById('product-qty').innerText = order.quantity + ' pcs';
             
-            document.getElementById('cost-subtotal').innerText = formatRupiah(order.price * order.qty);
-            document.getElementById('cost-shipping').innerText = formatRupiah(order.shipping);
-            document.getElementById('cost-total').innerText = formatRupiah(order.total);
+            document.getElementById('cost-subtotal').innerText = formatRupiah(order.total_price - order.shipping_cost);
+            document.getElementById('cost-shipping').innerText = formatRupiah(order.shipping_cost);
+            document.getElementById('cost-total').innerText = formatRupiah(order.total_price);
 
             // Populate data pelanggan
-            document.getElementById('customer-name').innerText = order.customer.name;
-            document.getElementById('customer-phone').innerText = order.customer.phone;
-            document.getElementById('customer-address').innerText = order.customer.address;
-            document.getElementById('customer-courier').innerText = order.customer.courier;
-            document.getElementById('customer-payment').innerText = order.customer.payment;
-            document.getElementById('customer-notes').innerText = order.customer.notes;
+            document.getElementById('customer-name').innerText = order.customer_name;
+            document.getElementById('customer-phone').innerText = order.customer_whatsapp;
+            document.getElementById('customer-address').innerText = order.customer_address;
+            document.getElementById('customer-courier').innerText = order.courier;
+            document.getElementById('customer-payment').innerText = order.payment_method;
+            document.getElementById('customer-notes').innerText = order.notes;
         });
 
         function confirmOrderWhatsApp() {
             if (!order) return;
 
+            const subtotal = order.total_price - order.shipping_cost;
             const message = `Halo AM Merchandise! Saya ingin melakukan konfirmasi pemesanan:
 
-🧾 *Invoice:* ${order.invoiceNo}
-📅 *Tanggal:* ${order.date}
+🧾 *Invoice:* ${order.receipt_number}
+📅 *Tanggal:* ${order.created_at}
 
 👤 *Detail Pelanggan:*
-• Nama: ${order.customer.name}
-• WhatsApp: ${order.customer.phone}
-• Alamat: ${order.customer.address}
+• Nama: ${order.customer_name}
+• WhatsApp: ${order.customer_whatsapp}
+• Alamat: ${order.customer_address}
 
 🛍️ *Pesanan:*
-• Produk: ${order.productName}
+• Produk: ${order.product_name}
 • Ukuran: ${order.size}
-• Jumlah: ${order.qty} pcs
-• Kurir: ${order.customer.courier}
-• Pembayaran: ${order.customer.payment}
-• Catatan: ${order.customer.notes}
+• Jumlah: ${order.quantity} pcs
+• Kurir: ${order.courier}
+• Pembayaran: ${order.payment_method}
+• Catatan: ${order.notes}
 
 💰 *Rincian Biaya:*
-• Subtotal: ${formatRupiah(order.price * order.qty)}
-• Ongkos Kirim: ${formatRupiah(order.shipping)}
-• *Total Tagihan:* *${formatRupiah(order.total)}*
+• Subtotal: ${formatRupiah(subtotal)}
+• Ongkos Kirim: ${formatRupiah(order.shipping_cost)}
+• *Total Tagihan:* *${formatRupiah(order.total_price)}*
 
 Mohon segera diproses ya. Terima kasih!`;
 

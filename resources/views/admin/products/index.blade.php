@@ -11,19 +11,23 @@
             <h3 class="text-lg font-bold text-gray-800">Daftar Produk Toko</h3>
             <p class="text-xs text-gray-500 mt-1">Total terdapat {{ $products->count() }} produk terdaftar</p>
         </div>
-        <a href="{{ route('admin.products.create') }}" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-md shadow-purple-500/20 active:scale-95">
-            ➕ Tambah Produk Baru
-        </a>
+        <div class="flex items-center gap-3">
+            <input type="text" id="productSearch" placeholder="Cari produk..." class="px-4 py-2 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition">
+            <a href="{{ route('admin.products.create') }}" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-md shadow-purple-500/20 active:scale-95">
+                ➕ Tambah Produk Baru
+            </a>
+        </div>
     </div>
 
     <!-- Table Container -->
     <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+        <table class="w-full text-left border-collapse product-table">
             <thead>
                 <tr class="bg-gray-50 border-b border-gray-100 text-gray-400 text-xs font-bold uppercase tracking-wider">
                     <th class="px-6 py-4 md:px-8">Produk</th>
                     <th class="px-6 py-4">Kategori</th>
                     <th class="px-6 py-4">Harga</th>
+                    <th class="px-6 py-4">Stok</th>
                     <th class="px-6 py-4">Badge</th>
                     <th class="px-6 py-4 text-right">Aksi</th>
                 </tr>
@@ -53,6 +57,13 @@
                         <td class="px-6 py-4">
                             <div class="font-semibold text-gray-800">{{ $product->price }}</div>
                             <div class="text-xs text-gray-400 mt-0.5">Raw: {{ number_format($product->price_raw, 0, ',', '.') }}</div>
+                        </td>
+
+                        <!-- Stock -->
+                        <td class="px-6 py-4">
+                            <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold {{ $product->stock > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700' }}">
+                                {{ $product->stock }} pcs
+                            </span>
                         </td>
 
                         <!-- Badge -->

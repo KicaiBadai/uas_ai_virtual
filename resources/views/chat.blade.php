@@ -541,7 +541,12 @@
                     </div>
                     <div class="p-2.5 md:p-4">
                         <h3 class="font-bold text-xs md:text-sm mb-1 text-gray-900 line-clamp-2 leading-tight">{{ $product['name'] }}</h3>
-                        <p class="text-purple-600 font-bold text-sm md:text-base mb-2 md:mb-3">{{ $product['price'] }}</p>
+                        <div class="flex justify-between items-center mb-2 md:mb-3">
+                            <p class="text-purple-600 font-bold text-sm md:text-base">{{ $product['price'] }}</p>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold {{ $product['stock'] > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                Stok: {{ $product['stock'] }}
+                            </span>
+                        </div>
                         <a href="/product/{{ $product['slug'] }}"
                            class="block w-full text-center bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-1.5 md:py-2 rounded-lg font-semibold text-xs md:text-sm hover:shadow-lg transition-all">
                             Lihat Detail
@@ -575,12 +580,14 @@
                         <li><a href="#" class="hover:text-white">Beranda</a></li>
                         <li><a href="#" class="hover:text-white">Produk</a></li>
                         <li><a href="#" class="hover:text-white">Kontak</a></li>
+                        <li><a href="{{ route('login') }}" class="hover:text-white">Login Admin</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-bold text-lg mb-4">📞 Hubungi</h3>
                     <p class="text-gray-400 text-sm">Email: info@merchandise.com</p>
                     <p class="text-gray-400 text-sm">Phone: +62 812 3456 7890</p>
+                    <a href="{{ route('pengaduan') }}" class="text-red-400 text-sm">Pengaduan</a>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
@@ -634,13 +641,13 @@
         <!-- INPUT AREA -->
         <div class="p-2 md:p-4 border-t border-gray-200 bg-white flex-shrink-0 chat-input-area">
             <div class="flex gap-2">
-                <input
-                    type="text"
+                <textarea
                     id="message"
                     placeholder="Tanya produk..."
-                    class="flex-1 border border-gray-300 rounded-lg md:rounded-xl px-2 md:px-4 py-2 md:py-3 focus:outline-none input-focus transition-all placeholder-gray-400 text-xs md:text-base"
+                    rows="1"
+                    class="flex-1 border border-gray-300 rounded-lg md:rounded-xl px-2 md:px-4 py-2 md:py-3 focus:outline-none input-focus transition-all placeholder-gray-400 text-xs md:text-base resize-none overflow-hidden"
                     onkeydown="handleKeyPress(event)"
-                >
+                    oninput="autoResize(this)"></textarea>
                 <button
                     onclick="sendMessage()"
                     class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-2 md:px-6 py-2 rounded-lg md:rounded-xl font-bold hover:shadow-lg transition-all flex items-center justify-center text-base md:text-xl flex-shrink-0"
@@ -665,12 +672,16 @@
             }
         }
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
-            }
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = el.scrollHeight + 'px';
         }
+function handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
 
         async function sendMessage() {
             const input = document.getElementById('message');
@@ -743,8 +754,12 @@
                 if (loadingMsg) loadingMsg.remove();
 
                 // Masukkan respon AI ke riwayat lokal
-                history.push({ role: 'assistant', content: aiReply });
-                sessionStorage.setItem('chat_history', JSON.stringify(history));
+                if (data.history) {
+                    sessionStorage.setItem('chat_history', data.history);
+                } else {
+                    history.push({ role: 'assistant', content: aiReply });
+                    sessionStorage.setItem('chat_history', JSON.stringify(history));
+                }
 
                 // TAMPILKAN REPLY AI
                 const aiMessageDiv = document.createElement('div');
@@ -822,6 +837,7 @@
                 
                 history.forEach(msg => {
                     if (msg.role === 'system') return;
+                    if (msg.role === 'assistant' && (!msg.content || msg.content.trim() === '')) return;
                     
                     const messageDiv = document.createElement('div');
                     if (msg.role === 'user') {

@@ -81,7 +81,7 @@ ATURAN MUTLAK (WAJIB DIPATUHI, JANGAN DILANGGAR):
             foreach ($groupedProducts as $categoryName => $categoryProducts) {
                 $productKnowledge .= "\n=== " . strtoupper($categoryName) . " ===\n";
                 foreach ($categoryProducts as $product) {
-                    $productKnowledge .= "- {$product->name}: {$product->price}\n";
+                    $productKnowledge .= "- {$product->name}: {$product->price} (Stok: {$product->stock} pcs)\n";
                     if ($product->image) {
                         $productKnowledge .= "  Gambar: ![{$product->name}]({$product->image})\n";
                     }
@@ -173,7 +173,7 @@ ATURAN MUTLAK (WAJIB DIPATUHI, JANGAN DILANGGAR):
                 'reply' => $reply
             ]);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage()

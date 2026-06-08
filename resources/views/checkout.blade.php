@@ -171,6 +171,7 @@
         const productName = "{{ $product['name'] }}";
         const productImage = "{{ $product['image'] }}";
         const productSlug = "{{ $product['slug'] }}";
+        const productStock = {{ $product['stock'] }};
 
         let qty = 1;
         let shippingCost = 15000;
@@ -194,9 +195,13 @@
         }
 
         function incrementQty() {
-            qty++;
-            document.getElementById('quantity').value = qty;
-            updatePrice();
+            if (qty < productStock) {
+                qty++;
+                document.getElementById('quantity').value = qty;
+                updatePrice();
+            } else {
+                alert('Tidak bisa memesan lebih dari stok yang tersedia (' + productStock + ' pcs).');
+            }
         }
 
         function decrementQty() {
@@ -234,34 +239,42 @@
             const paymentMethod = document.getElementById('payment_method').value;
             const notes = document.getElementById('notes').value.trim();
 
-            const invoiceNo = 'INV/' + new Date().getFullYear() + '/' + Math.floor(100000 + Math.random() * 900000);
-
-            // Simpan objek pesanan ke sessionStorage
-            const orderData = {
-                invoiceNo: invoiceNo,
-                date: new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }),
-                productName: productName,
-                productImage: productImage,
-                productSlug: productSlug,
-                price: basePrice,
-                qty: qty,
-                size: selectedSize,
-                shipping: shippingCost,
-                total: (basePrice * qty) + shippingCost,
-                customer: {
-                    name: name,
-                    phone: phone,
-                    address: address,
+            // Kirim request ke backend untuk memproses pemesanan dan mengurangi stok
+            fetch(`/checkout/${productSlug}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    qty: qty,
+                    size: selectedSize,
+                    customer_name: name,
+                    customer_phone: phone,
+                    shipping_address: address,
                     courier: courier,
-                    payment: paymentMethod,
+                    payment_method: paymentMethod,
                     notes: notes || '-'
+                })
+            })
+            .then(async response => {
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    sessionStorage.setItem('latest_order', JSON.stringify(data.order));
+                    window.location.href = '/checkout/success';
+                } else {
+                    let errMsg = data.message || 'Stok tidak mencukupi.';
+                    if (data.errors) {
+                        errMsg += '\n' + Object.values(data.errors).flat().join('\n');
+                    }
+                    alert('Gagal memproses pesanan: ' + errMsg);
                 }
-            };
-
-            sessionStorage.setItem('latest_order', JSON.stringify(orderData));
-
-            // Alihkan ke halaman sukses order
-            window.location.href = '/checkout/success';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat memproses pesanan. Silakan periksa kolom input Anda.');
+            });
         }
 
         // Initialize Price Calculation

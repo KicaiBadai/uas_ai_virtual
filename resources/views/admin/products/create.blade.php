@@ -97,6 +97,21 @@
                 >
             </div>
 
+            <!-- Stock -->
+            <div>
+                <label for="stock" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Stok Awal</label>
+                <input 
+                    type="number" 
+                    name="stock" 
+                    id="stock" 
+                    value="{{ old('stock', 0) }}" 
+                    required 
+                    min="0"
+                    placeholder="Contoh: 15"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 transition text-sm text-gray-800"
+                >
+            </div>
+
             <!-- Image URL -->
             <div class="sm:col-span-2">
                 <label for="image" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">URL Gambar Produk</label>

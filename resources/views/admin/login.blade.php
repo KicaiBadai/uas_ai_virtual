@@ -98,7 +98,7 @@
                 <p class="font-bold flex items-center gap-1">🔑 <span>Demo Akun:</span></p>
                 <div class="space-y-1">
                     <div><strong>Admin:</strong> admin@am.com / adminpassword123</div>
-                    <div><strong>Customer:</strong> user@am.com / userpassword123</div>
+                    
                 </div>
             </div>
 
